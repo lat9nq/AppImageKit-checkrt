@@ -1,0 +1,23 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-18.04
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: make
+      run: make
+    - name: copy
+      run: |
+        mkdir -p artifacts 
+        cp -v AppRun_patched artifacts/AppRun_patched-x86_64
+        cp -v exec.so artifacts/exec-x86_64.so
+
