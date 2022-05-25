@@ -19,8 +19,8 @@ cd "usr"
 
 if [ -e "./optional/libstdc++/libstdc++.so.6" ]; then
   lib="$(PATH="/sbin:$PATH" ldconfig -p | grep "libstdc++\.so\.6 ($libc6arch)" | awk 'NR==1{print $NF}')"
-  sym_sys=$(tr '\0' '\n' < "$lib" | grep -e '^GLIBCXX_3\.4' | tail -n1)
-  sym_app=$(tr '\0' '\n' < "./optional/libstdc++/libstdc++.so.6" | grep -e '^GLIBCXX_3\.4' | tail -n1)
+  sym_sys=$(tr '\0' '\n' < "$lib" | grep -e '^GLIBCXX_3\.4' | awk '{ print length, bash }' | sort | tail -n 1 | awk 'NR==1{print }')
+  sym_app=$(tr '\0' '\n' < "./optional/libstdc++/libstdc++.so.6" | grep -e '^GLIBCXX_3\.4' | awk '{ print length, bash }' | sort | tail -n 1 | awk 'NR==1{print }')
   if [ "$(printf "${sym_sys}\n${sym_app}"| sort -V | tail -1)" != "$sym_sys" ]; then
     cxxpath="./optional/libstdc++:"
   fi
