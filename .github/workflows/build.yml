@@ -20,4 +20,8 @@ jobs:
         mkdir -p artifacts 
         cp -v AppRun_patched artifacts/AppRun_patched-x86_64
         cp -v exec.so artifacts/exec-x86_64.so
-
+    - name: upload
+      uses: actions/upload-artifact@v3
+      with:
+        name: binaries
+        path: artifacts/*
